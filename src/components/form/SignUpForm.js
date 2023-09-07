@@ -19,7 +19,10 @@ const SignUpForm = () => {
         email: Yup.string().email().required("Required"),
         intro: Yup.string().required("Required"),
         job: Yup.string().required("Required"),
-        terms: Yup.boolean(),
+        terms: Yup.boolean().oneOf(
+          [true],
+          "Please check the terms and conditions"
+        ),
       })}
       onSubmit={(values) => {
         console.log(values);
@@ -61,17 +64,9 @@ const SignUpForm = () => {
           <option value="fullstack">Fullstack Developer</option>
         </MySelectBox>
 
-        <div className="flex items-center gap-2 mb-5">
-          <Field
-            name="terms"
-            type="checkbox"
-            className="p-4 rounded-md border border-gray-100"
-          ></Field>
+        <MyCheckbox name="terms">
           <p>I accept the terms and conditions</p>
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="terms"></ErrorMessage>
-          </div>
-        </div>
+        </MyCheckbox>
 
         <div>
           <button
@@ -141,4 +136,20 @@ const MySelectBox = ({ label, ...props }) => {
     </div>
   );
 };
+
+const MyCheckbox = ({ children, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="flex flex-col gap-2 mb-5">
+      <label className="flex items-center gap-2">
+        <input type="checkbox" {...field} {...props} />
+        {children}
+      </label>
+      {meta.touched && meta.error ? (
+        <div className="text-sm text-red-500">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
 export default SignUpForm;
