@@ -48,18 +48,12 @@ const SignUpForm = () => {
           type="email"
         ></MyInput>
 
-        <div className="flex flex-col gap-2 mb-5">
-          <label htmlFor="intro">Introduce yourself</label>
-          <Field
-            name="intro"
-            placeholder="Enter your introduce"
-            className="p-4 rounded-md border border-gray-100 h-[150px] resize-none"
-            as="textarea"
-          ></Field>
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="intro"></ErrorMessage>
-          </div>
-        </div>
+        <MyTextarea
+          label="Introduce yourself"
+          name="intro"
+          placeholder="Enter your introduce"
+          id="intro"
+        ></MyTextarea>
 
         <div className="flex flex-col gap-2 mb-5">
           <label htmlFor="job">Select your job</label>
@@ -112,6 +106,25 @@ const MyInput = ({ label, ...props }) => {
       <input
         type="text"
         className="p-4 rounded-md border border-gray-100"
+        {...field}
+        {...props}
+      />
+      {meta.touched && meta.error ? (
+        <div className="text-sm text-red-500">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
+const MyTextarea = ({ label, ...props }) => {
+  // console.log("MyInput ~ props", props);
+  // {label, name}
+  const [field, meta] = useField(props);
+  return (
+    <div className="flex flex-col gap-2 mb-5">
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <textarea
+        className="p-4 rounded-md border border-gray-100 h-[150px] resize-none"
         {...field}
         {...props}
       />
