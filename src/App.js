@@ -1,10 +1,10 @@
 import "./App.css";
-import AppRefHook from "./components/refhook/AppRefHook";
+import SignUpForm from "./components/form/SignUpForm";
 
 function App() {
   return (
     <div>
-      <AppRefHook></AppRefHook>
+      <SignUpForm></SignUpForm>
     </div>
   );
 }
