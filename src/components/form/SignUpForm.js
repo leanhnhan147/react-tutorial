@@ -55,21 +55,11 @@ const SignUpForm = () => {
           id="intro"
         ></MyTextarea>
 
-        <div className="flex flex-col gap-2 mb-5">
-          <label htmlFor="job">Select your job</label>
-          <Field
-            name="job"
-            className="p-4 rounded-md border border-gray-100"
-            as="select"
-          >
-            <option value="frontend">Frontend Developer</option>
-            <option value="backend">Backend Developer</option>
-            <option value="fullstack">Fullstack Developer</option>
-          </Field>
-          <div className="text-sm text-red-500">
-            <ErrorMessage name="job"></ErrorMessage>
-          </div>
-        </div>
+        <MySelectBox name="job" label="Select your job">
+          <option value="frontend">Frontend Developer</option>
+          <option value="backend">Backend Developer</option>
+          <option value="fullstack">Fullstack Developer</option>
+        </MySelectBox>
 
         <div className="flex items-center gap-2 mb-5">
           <Field
@@ -135,4 +125,20 @@ const MyTextarea = ({ label, ...props }) => {
   );
 };
 
+const MySelectBox = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="flex flex-col gap-2 mb-5">
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <select
+        className="p-4 rounded-md border border-gray-100"
+        {...field}
+        {...props}
+      />
+      {meta.touched && meta.error ? (
+        <div className="text-sm text-red-500">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
 export default SignUpForm;
