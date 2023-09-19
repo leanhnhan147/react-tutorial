@@ -1,11 +1,15 @@
+import { Fragment } from "react";
 import "./App.css";
-import SignUpForm from "./components/form/SignUpForm";
+import { GalleryProvider } from "./context/GalleryContext";
+import PhotoList from "./components/gallery/PhotoList ";
 
 function App() {
   return (
-    <div>
-      <SignUpForm></SignUpForm>
-    </div>
+    <Fragment>
+      <GalleryProvider>
+        <PhotoList></PhotoList>
+      </GalleryProvider>
+    </Fragment>
   );
 }
 
