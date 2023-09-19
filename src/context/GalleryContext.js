@@ -50,6 +50,17 @@ function GalleryProvider(props) {
     setPhotos(updatedArray);
   }
 
+  // 1. Viết function addToCart
+  // 2. Function addToCart truyền params là photo
+  function addToCart(newItem) {
+    // 3. Cập nhật lại state giỏ hàng (cartItems)
+    setCartItems((prevItems) => {
+      const isExisted = prevItems.some((item) => item.id === newItem.id);
+      if (isExisted) return [...prevItems];
+      return [...prevItems, newItem];
+    });
+  }
+
   const value = {
     photos,
     cartItems,
@@ -58,6 +69,7 @@ function GalleryProvider(props) {
     setCartItems,
     setFavoriteList,
     toggleFavorite,
+    addToCart,
   };
   return (
     <GalleryContext.Provider value={value} {...props}></GalleryContext.Provider>

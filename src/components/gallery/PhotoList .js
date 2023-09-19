@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { useGallery } from "../../context/GalleryContext";
 
 const PhotoList = () => {
-  const { photos } = useGallery();
+  const { photos, cartItems } = useGallery();
+  console.log(cartItems);
   return (
     <div className="py-10 px-5">
       <div className="grid grid-cols-4 gap-10">
@@ -17,7 +18,8 @@ const PhotoList = () => {
 };
 
 const PhotoItem = ({ info: { url, isFavorite, id } }) => {
-  const { toggleFavorite } = useGallery();
+  const { toggleFavorite, addToCart } = useGallery();
+  const item = { url, isFavorite, id };
   return (
     <div className="relative h-[300px] cursor-pointer group">
       <img src={url} alt="" className="w-full h-full object-cover" />
@@ -43,6 +45,7 @@ const PhotoItem = ({ info: { url, isFavorite, id } }) => {
       <button
         className="py-2 px-6 text-sm font-medium bg-white rounded-lg text-black absolute bottom-5 left-2/4 -translate-x-2/4 opacity-0 invisible 
       group-hover:opacity-100 group-hover:visible transition-all "
+        onClick={() => addToCart(item)}
       >
         Add to cart
       </button>
