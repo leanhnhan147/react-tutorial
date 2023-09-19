@@ -61,6 +61,13 @@ function GalleryProvider(props) {
     });
   }
 
+  function removeFromCart(photoId) {
+    setCartItems((prevItems) => {
+      const result = prevItems.filter((item) => item.id !== photoId);
+      return result;
+    });
+  }
+
   const value = {
     photos,
     cartItems,
@@ -70,6 +77,7 @@ function GalleryProvider(props) {
     setFavoriteList,
     toggleFavorite,
     addToCart,
+    removeFromCart,
   };
   return (
     <GalleryContext.Provider value={value} {...props}></GalleryContext.Provider>
